@@ -19,9 +19,11 @@ module.exports = async function handler(req, res) {
 
 async function fetchGames(year, week) {
   const rapid = await tryRapidApi(year, week);
-  if (rapid && rapid.length) return rapid;
+  if (rapid && rapid.length && isUsable(rapid)) return rapid;
   const espn = await tryEspn(year, week);
-  return espn || [];
+  if (espn && espn.length) return espn;
+  // fallback to rapid even if not ideal
+  return rapid || [];
 }
 
 async function tryRapidApi(year, week) {
@@ -110,6 +112,14 @@ function normalize(home, away, hs, as, status, quarter, clock, id) {
     clock: clock || null,
     id: id || null
   };
+}
+
+function isUsable(games) {
+  try {
+    return games.some(g => (g.homeScore || 0) + (g.awayScore || 0) > 0 || !!g.winner);
+  } catch {
+    return false;
+  }
 }
 
 
