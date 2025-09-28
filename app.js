@@ -192,7 +192,7 @@ autoRefresh();
 async function fetchWeekGames(year, week) {
   // cache first
   const cached = cacheGet(year, week);
-  if (cached) return cached;
+  if (Array.isArray(cached) && cached.length > 0) return cached;
   const proxyBase = `${location.origin}/api`;
   const isLocal = /^(localhost|127\.0\.0\.1)$/.test(location.hostname);
   const urls = isLocal ? [
@@ -216,7 +216,7 @@ async function fetchWeekGames(year, week) {
       json = await res.json();
       // If proxy returns array already normalized, forward it
       if (Array.isArray(json)) {
-        cacheSet(year, week, json);
+        if (json.length > 0) cacheSet(year, week, json);
         return json;
       }
       break;
@@ -245,7 +245,7 @@ async function fetchWeekGames(year, week) {
       winner: winnerId || null
     };
     });
-    cacheSet(year, week, normalized);
+    if (normalized.length > 0) cacheSet(year, week, normalized);
     return normalized;
   }
   // Fallback empty
