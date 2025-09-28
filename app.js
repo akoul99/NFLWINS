@@ -210,13 +210,17 @@ async function fetchWeekGames(year, week) {
     try {
       const controller = new AbortController();
       const timeout = setTimeout(() => controller.abort(), 8000);
+      console.info('[scoreboard] fetch', { year, week, url });
       const res = await fetch(url, { cache: 'no-store', signal: controller.signal });
       clearTimeout(timeout);
       if (!res.ok) throw new Error(`HTTP ${res.status} for ${url}`);
       json = await res.json();
       // If proxy returns array already normalized, forward it
       if (Array.isArray(json)) {
-        if (json.length > 0) cacheSet(year, week, json);
+        if (json.length > 0) {
+          console.info('[scoreboard] from proxy', { week, sample: json.slice(0, 2) });
+          cacheSet(year, week, json);
+        }
         return json;
       }
       break;
