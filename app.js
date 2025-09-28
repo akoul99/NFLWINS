@@ -193,13 +193,17 @@ async function fetchWeekGames(year, week) {
   // cache first
   const cached = cacheGet(year, week);
   if (cached) return cached;
-  const proxyBase = `${location.protocol}//${location.hostname}:5174`;
-  const urls = [
-    // local/network CORS proxy (returns normalized array)
+  const proxyBase = `${location.origin}/api`;
+  const isLocal = /^(localhost|127\.0\.0\.1)$/.test(location.hostname);
+  const urls = isLocal ? [
+    // local dev: prefer local proxy first, then same-origin (likely 404)
+    `http://localhost:5174/scoreboard?week=${week}&year=${year}`,
     `${proxyBase}/scoreboard?week=${week}&year=${year}`,
-    // direct endpoints as a last resort (may fail due to CORS)
     `https://site.api.espn.com/apis/v2/sports/football/nfl/scoreboard?week=${week}&seasontype=2&year=${year}`,
     `https://site.api.espn.com/apis/v2/sports/football/nfl/scoreboard?week=${week}&dates=${year}09`
+  ] : [
+    // production: only same-origin function to avoid CORS/404 noise
+    `${proxyBase}/scoreboard?week=${week}&year=${year}`
   ];
   let json = null; let lastErr = null;
   for (const url of urls) {
@@ -208,7 +212,7 @@ async function fetchWeekGames(year, week) {
       const timeout = setTimeout(() => controller.abort(), 8000);
       const res = await fetch(url, { cache: 'no-store', signal: controller.signal });
       clearTimeout(timeout);
-      if (!res.ok) throw new Error(String(res.status));
+      if (!res.ok) throw new Error(`HTTP ${res.status} for ${url}`);
       json = await res.json();
       // If proxy returns array already normalized, forward it
       if (Array.isArray(json)) {
