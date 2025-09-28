@@ -1,0 +1,261 @@
+{
+  "meta": {
+    "profileName": "Pastel-Mobile-Commerce",
+    "version": "1.0.0",
+    "description": "A soft, pastel, rounded mobile UI system with airy spacing, product cards, and pill controls.",
+    "platforms": ["iOS", "Android", "Web"]
+  },
+  "designLanguage": {
+    "keywords": ["pastel", "airy", "rounded", "playful", "minimal", "product-first"],
+    "tone": "friendly and modern with high legibility",
+    "baseUnit": 4
+  },
+  "tokens": {
+    "colors": {
+      "primary": "#22C55E",
+      "onPrimary": "#0B1315",
+      "secondary": "#06B6D4",
+      "onSecondary": "#031014",
+      "accent": "#60A5FA",
+      "background": "#0B1020",
+      "surface": "#111827",
+      "surfaceAlt": "#0F172A",
+      "onBackground": "#E5E7EB",
+      "muted": "#9CA3AF",
+      "border": "#334155",
+      "success": "#22C55E",
+      "warning": "#F59E0B",
+      "error": "#EF4444",
+      "info": "#06B6D4",
+      "shadowColor": "rgba(0,0,0,0.5)",
+      "gradients": {
+        "hero": "linear-gradient(135deg,#0EA5E9 0%,#22C55E 100%)",
+        "cta": "linear-gradient(135deg,#22C55E 0%,#06B6D4 100%)"
+      }
+    },
+    "typography": {
+      "fontFamilies": {
+        "brand": "Inter, SF Pro, Roboto, Helvetica, Arial, sans-serif",
+        "ui": "System-ui, -apple-system, Segoe UI, Roboto, Inter, sans-serif"
+      },
+      "weights": { "regular": 400, "medium": 600, "strong": 700 },
+      "textStyles": {
+        "display": { "size": 34, "lineHeight": 40, "weight": 700, "tracking": -0.2 },
+        "headline": { "size": 28, "lineHeight": 34, "weight": 700, "tracking": -0.2 },
+        "title": { "size": 20, "lineHeight": 26, "weight": 600, "tracking": -0.1 },
+        "body": { "size": 16, "lineHeight": 22, "weight": 400, "tracking": 0 },
+        "caption": { "size": 13, "lineHeight": 18, "weight": 400, "tracking": 0 },
+        "label": { "size": 15, "lineHeight": 20, "weight": 600, "tracking": 0 }
+      },
+      "numerals": "tabular"
+    },
+    "spacing": [0, 4, 8, 12, 16, 20, 24, 28, 32, 40, 48, 56],
+    "radii": { "xs": 6, "sm": 10, "md": 14, "lg": 20, "xl": 28, "pill": 999 },
+    "elevation": {
+      "0": "none",
+      "1": "0 1px 2px rgba(28,16,68,0.06), 0 1px 1px rgba(28,16,68,0.04)",
+      "2": "0 4px 10px rgba(28,16,68,0.08), 0 2px 4px rgba(28,16,68,0.06)",
+      "3": "0 8px 20px rgba(28,16,68,0.12), 0 4px 8px rgba(28,16,68,0.08)"
+    },
+    "iconography": { "style": "rounded", "grid": 24, "stroke": 1.5 },
+    "images": { "cornerRadius": "lg", "aspectRatios": ["1:1", "3:4", "16:9"], "fit": "cover" }
+  },
+  "layout": {
+    "grid": { "columns": 4, "gutter": 16, "margin": 16 },
+    "breakpoints": { "mobile": 360, "phablet": 414, "tablet": 768 },
+    "safeArea": true,
+    "sectionSpacing": { "compact": 16, "regular": 24, "spacious": 32 }
+  },
+  "components": {
+    "appBar": {
+      "height": 56,
+      "background": "transparent",
+      "titleStyle": "title",
+      "actions": ["iconButton"],
+      "elevation": "0"
+    },
+    "searchBar": {
+      "height": 44,
+      "shape": "pill",
+      "background": "{tokens.colors.surface}",
+      "textStyle": "body",
+      "placeholderColor": "#A3A0B1",
+      "icon": "search",
+      "paddingX": 16,
+      "borderColor": "{tokens.colors.border}",
+      "elevation": "1"
+    },
+    "button": {
+      "sizes": {
+        "sm": { "height": 36, "paddingX": 14, "textStyle": "label" },
+        "md": { "height": 44, "paddingX": 18, "textStyle": "label" },
+        "lg": { "height": 52, "paddingX": 22, "textStyle": "label" }
+      },
+      "variants": {
+        "primary": {
+          "background": "{tokens.colors.primary}",
+          "foreground": "{tokens.colors.onPrimary}",
+          "radius": "pill",
+          "elevation": "2"
+        },
+        "secondary": {
+          "background": "{tokens.colors.surface}",
+          "foreground": "{tokens.colors.onBackground}",
+          "radius": "pill",
+          "borderColor": "{tokens.colors.border}",
+          "elevation": "1"
+        },
+        "tertiary": {
+          "background": "transparent",
+          "foreground": "{tokens.colors.primary}",
+          "radius": "pill",
+          "elevation": "0"
+        }
+      },
+      "states": {
+        "hover": { "opacity": 0.92 },
+        "pressed": { "scale": 0.98, "elevation": "0" },
+        "disabled": { "opacity": 0.5 }
+      }
+    },
+    "chip": {
+      "height": 34,
+      "radius": "pill",
+      "paddingX": 12,
+      "background": "{tokens.colors.surface}",
+      "textStyle": "label",
+      "borderColor": "{tokens.colors.border}"
+    },
+    "card": {
+      "radius": "lg",
+      "padding": 16,
+      "elevation": "1",
+      "dividerColor": "{tokens.colors.border}"
+    },
+    "productTile": {
+      "image": { "ratio": "3:4", "radius": "md" },
+      "nameStyle": "body",
+      "priceStyle": "title",
+      "metaStyle": "caption",
+      "badges": ["chip"],
+      "actions": ["iconButton", "addToCart"]
+    },
+    "quantityStepper": {
+      "height": 36,
+      "radius": "pill",
+      "background": "{tokens.colors.surface}",
+      "textStyle": "label",
+      "controls": { "minus": "iconButton/ghost", "plus": "iconButton/ghost" },
+      "borderColor": "{tokens.colors.border}"
+    },
+    "iconButton": {
+      "size": 40,
+      "radius": "pill",
+      "variants": {
+        "filled": {
+          "background": "{tokens.colors.surface}",
+          "iconColor": "{tokens.colors.onBackground}",
+          "elevation": "1"
+        },
+        "ghost": {
+          "background": "transparent",
+          "iconColor": "{tokens.colors.onBackground}",
+          "borderColor": "{tokens.colors.border}"
+        }
+      }
+    },
+    "bottomBar": {
+      "height": 72,
+      "background": "{tokens.colors.surface}",
+      "elevation": "3",
+      "tabs": { "activeColor": "{tokens.colors.primary}", "inactiveColor": "{tokens.colors.muted}", "indicator": "dot" }
+    },
+    "banner": {
+      "height": 180,
+      "radius": "xl",
+      "background": "{tokens.colors.gradients.hero}",
+      "overlayOpacity": 0.1,
+      "padding": 24
+    },
+    "rating": { "icon": "star", "activeColor": "#F59E0B", "inactiveColor": "{tokens.colors.border}", "size": 16 },
+    "segmentedControl": {
+      "height": 40,
+      "radius": "pill",
+      "background": "#F1EEFF",
+      "indicator": { "radius": "pill", "background": "{tokens.colors.surface}", "elevation": "1" },
+      "textStyle": "label"
+    },
+    "field": {
+      "height": 48,
+      "radius": "md",
+      "background": "{tokens.colors.surface}",
+      "borderColor": "{tokens.colors.border}",
+      "labelStyle": "caption",
+      "textStyle": "body",
+      "placeholderColor": "#A3A0B1",
+      "leadingIcon": true,
+      "trailingIcon": true
+    }
+  },
+  "states": {
+    "focus": { "ring": "0 0 0 3px rgba(124,111,246,0.35)" },
+    "pressed": { "scale": 0.98, "elevation": "0" },
+    "disabled": { "opacity": 0.4 }
+  },
+  "motion": {
+    "durations": { "fast": 120, "normal": 200, "slow": 300 },
+    "easings": {
+      "standard": [0.2, 0, 0, 1],
+      "decelerate": [0, 0, 0.2, 1],
+      "accelerate": [0.3, 0, 1, 1]
+    },
+    "micro": { "buttonTap": { "duration": 120, "scale": [1, 0.98, 1] } },
+    "transitions": { "screen": { "type": "slide-fade", "direction": "left", "duration": 260 } }
+  },
+  "a11y": {
+    "minTapSize": 44,
+    "contrastText": 4.5,
+    "contrastUI": 3,
+    "dynamicType": true,
+    "hitSlop": 4
+  },
+  "theming": {
+    "light": { "overrides": {} },
+    "dark": {
+      "colors": {
+        "background": "#12101A",
+        "surface": "#181525",
+        "onBackground": "#F1EEFF",
+        "muted": "#A8A4BF",
+        "border": "#2C2740",
+        "shadowColor": "rgba(0,0,0,0.50)"
+      },
+      "elevation": {
+        "1": "0 1px 2px rgba(0,0,0,0.50)",
+        "2": "0 4px 10px rgba(0,0,0,0.55)",
+        "3": "0 8px 20px rgba(0,0,0,0.60)"
+      }
+    }
+  },
+  "patterns": {
+    "homeListing": {
+      "sections": ["banner", "segmentedControl", "grid"],
+      "grid": { "type": "card-grid", "columns": 2, "gutter": 16, "card": "productTile" }
+    },
+    "productDetail": {
+      "header": "appBar",
+      "gallery": { "type": "carousel", "height": 320, "radius": "xl" },
+      "content": ["title", "price", "options", "quantityStepper", "cta"],
+      "cta": { "primary": "Add to cart", "floating": true }
+    },
+    "cart": {
+      "listItem": { "imageRatio": "1:1", "radius": "md" },
+      "summary": { "container": "card" }
+    }
+  },
+  "export": {
+    "cssVariables": { "prefix": "--pfm-" },
+    "tailwind": { "prefix": "pfm", "baseUnit": 4 }
+  }
+}
+
