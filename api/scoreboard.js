@@ -1,7 +1,7 @@
 // Vercel Serverless Function: Normalizes NFL games for a given week/year
 // Usage: /api/scoreboard?week=1&year=2025
 
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   try {
     const { week, year } = req.query || {};
     if (!week || !year) {
