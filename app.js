@@ -272,10 +272,15 @@ async function computeStandings(upToWeek) {
   for (let idx = 0; idx < gamesByWeek.length; idx++) {
     const games = gamesByWeek[idx] || [];
     for (const g of games) {
-      if (g && g.winner) {
-        const pid = teamToPlayer.get(String(g.winner).toUpperCase());
+      if (!g) continue;
+      let winTeam = g.winner;
+      if (!winTeam && Number.isFinite(g.homeScore) && Number.isFinite(g.awayScore) && g.homeScore !== g.awayScore) {
+        winTeam = g.homeScore > g.awayScore ? g.home : g.away;
+      }
+      if (winTeam) {
+        const pid = teamToPlayer.get(String(winTeam).toUpperCase());
         if (pid) winsByPlayer.set(pid, winsByPlayer.get(pid) + 1);
-        const key = String(g.winner).toUpperCase();
+        const key = String(winTeam).toUpperCase();
         winsByTeam.set(key, (winsByTeam.get(key) || 0) + 1);
       }
     }
